@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="Models\Symbols.fs" />
+    <Compile Include="Parsers\InlineParser.fs" />
     <Compile Include="Parsers\BlockParser.fs" />
     <Compile Include="IServices.fs" />
     <Compile Include="Library.fs" />

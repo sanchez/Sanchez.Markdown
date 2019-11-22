@@ -6,7 +6,7 @@ module BlockParser =
 
     let private separateHeadOut (lines: List<string>) =
         let head = lines.Head
-        let remainderLines = lines.GetSlice (Some 1,  Some (lines.Length - 2))
+        let remainderLines = lines.GetSlice (Some 1,  Some (lines.Length - 1))
         (head, remainderLines)
 
     let private ProcessNewLine (lines: List<string>) =
