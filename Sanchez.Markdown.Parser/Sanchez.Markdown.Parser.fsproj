@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Parsers\BlockParser.fs" />
+    <Compile Include="Models\Symbols.fs" />
+    <Compile Include="IServices.fs" />
+    <Compile Include="Library.fs" />
+  </ItemGroup>
+
+</Project>
