@@ -1,13 +1,12 @@
 ﻿namespace Sanchez.Markdown.Parser.Parsers
 
 open Sanchez.Markdown.Parser.Models
+open System.Text.RegularExpressions
 
 module BlockParser =
 
     let private separateHeadOut (lines: List<string>) =
-        let head = lines.Head
-        let remainderLines = lines.GetSlice (Some 1,  Some (lines.Length - 1))
-        (head, remainderLines)
+        (lines.Head, lines.Tail)
 
     let private ProcessNewLine (lines: List<string>) =
         let line = lines.Head
@@ -18,9 +17,40 @@ module BlockParser =
         else
             (None, lines)
 
+    let headingMatch = new Regex (@"^(#{1,6})\ ?(.*)$", RegexOptions.Compiled)
+    let private ProcessHeading (lines: string list) =
+        let line = lines.Head
+        let matchResult = headingMatch.Match line
+        if matchResult.Success then
+            let depth = matchResult.Groups.[1].Value.Length
+            let title = matchResult.Groups.[2].Value
+            let (_, remainderLines) = separateHeadOut lines
+
+            title
+            |> Seq.toList
+            |> InlineParser.ParseInlines <| []
+            |> (fun x -> Symbols.HeadingSymbol (depth, x))
+            |> Symbols.Heading
+            |> (fun x -> (Some x, remainderLines))
+        else
+            (None, lines)
+
+
+    let private ProcessParagraph (lines: List<string>) =
+        let (content, remainderLines) = separateHeadOut(lines)
+        content 
+        |> Seq.toList
+        |> InlineParser.ParseInlines <| []
+        |> Symbols.SimpleSymbol
+        |> Symbols.Paragraph
+        |> (fun x -> (Some x, remainderLines))
+
 
     let private parsers: List<List<string> -> Symbols.Block option * string list> = [
+        ProcessHeading
         ProcessNewLine
+
+        ProcessParagraph
     ]
 
     let rec ParseLines (lines: List<string>) =

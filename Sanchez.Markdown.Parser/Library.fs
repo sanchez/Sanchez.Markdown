@@ -1,12 +1,13 @@
-﻿module Sanchez.Markdown.Parser
+﻿namespace Sanchez.Markdown.Parser
 
 open Sanchez.Markdown.Parser.Parsers
 
-let Parser (document: string) =
-    let lines = 
-        document.Split [| '\n' |] 
-        |> Array.toList
-        |> List.map (fun x -> x.TrimEnd ())
+module Parser =
 
-    let res = BlockParser.ParseLines lines
-    "Hello World"
+    let ParseString (document: string) =
+        let lines = 
+            document.Split [| '\n' |] 
+            |> Array.toList
+            |> List.map (fun x -> x.TrimEnd ())
+
+        BlockParser.ParseLines lines

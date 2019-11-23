@@ -1,13 +1,11 @@
-﻿module InlineParser
+﻿namespace Sanchez.Markdown.Parser.Parsers
 
 open Sanchez.Markdown.Parser.Models
 
 module InlineParser =
 
     let private separateHeadOut (characters: List<char>) =
-        let head = characters.Head
-        let remainderLines = characters.GetSlice (Some 1, Some (characters.Length - 1))
-        (head, remainderLines)
+        (characters.Head, characters.Tail)
 
     let private CreatePlainText (chars: List<char>) =
         chars 
@@ -19,8 +17,8 @@ module InlineParser =
 
     let private parsers: List<List<char> -> Symbols.Inline option * char list> = []
 
-    let rec ParseInlines (chars: List<char>, emptyChars: List<char>) =
-        if chars.IsEmpty then []
+    let rec processInline (chars: List<char>) (emptyChars: List<char>) =
+        if chars.IsEmpty then [CreatePlainText emptyChars]
         else
             let parser =
                 parsers
@@ -33,10 +31,15 @@ module InlineParser =
             | Some (x) ->
                 let (s, remainderLines) = x chars
                 if emptyChars.IsEmpty then
-                    s::ParseInlines(remainderLines, [])
+                    s::processInline remainderLines []
                 else
                     let plain = CreatePlainText emptyChars
-                    plain::s::ParseInlines(remainderLines, [])
+                    plain::s::processInline remainderLines []
             | None ->
                 let (c, remainderLines) = separateHeadOut chars
-                ParseInlines(remainderLines, emptyChars @ [c])
+                processInline remainderLines (emptyChars @ [c])
+
+    let ParseInlines (chars: char list) (emptyChars: char list) =
+        processInline chars emptyChars
+        |> List.filter (fun x -> x.IsSome)
+        |> List.map (fun x -> x.Value)

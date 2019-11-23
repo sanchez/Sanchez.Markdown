@@ -10,7 +10,7 @@ namespace Sanchez.Markdown
             var fullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "test.md");
             var data = File.ReadAllText(fullFilePath);
 
-            var res = Parser.Parser(data);
+            var res = Parser.Parser.ParseString(data);
 
             Console.WriteLine("Hello World!");
         }

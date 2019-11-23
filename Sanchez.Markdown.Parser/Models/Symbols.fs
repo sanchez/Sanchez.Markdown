@@ -7,7 +7,7 @@ module Symbols =
         | Italics of SimpleInlineSymbol
         | PlainText of PlainTextSymbol
 
-    and SimpleInlineSymbol (content: List<Inline>) =
+    and SimpleInlineSymbol (content: Inline list) =
         member this.Content = content
 
     and PlainTextSymbol (content: string) =
@@ -16,15 +16,18 @@ module Symbols =
 
 
     type Block =
-        | Document of SimpleSymbol
+        | Document of DocumentSymbol
         | Heading of HeadingSymbol
         | NewLine of BlankSymbol
         | Paragraph of SimpleSymbol
 
-    and SimpleSymbol (content: List<Block>) =
+    and DocumentSymbol (content: Block list) =
         member this.Content = content
 
-    and HeadingSymbol (depth: int, title: List<Inline>) =
+    and SimpleSymbol (content: Inline list) =
+        member this.Content = content
+
+    and HeadingSymbol (depth: int, title: Inline list) =
         member this.Depth = depth
         member this.Title = title
 
