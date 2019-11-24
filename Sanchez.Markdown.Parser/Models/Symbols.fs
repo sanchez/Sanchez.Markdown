@@ -14,12 +14,20 @@ module Symbols =
         member this.Content = content
 
 
+    type MarkupList =
+        | ListItem of Inline list
+        | ListGroup of GroupSymbol
+
+    and GroupSymbol (content: MarkupList list) =
+        member this.Content = content
 
     type Block =
         | Document of DocumentSymbol
         | Heading of HeadingSymbol
         | NewLine of BlankSymbol
         | Paragraph of SimpleSymbol
+        | UnorderedList of MarkupList
+        | OrderedList of MarkupList
 
     and DocumentSymbol (content: Block list) =
         member this.Content = content
