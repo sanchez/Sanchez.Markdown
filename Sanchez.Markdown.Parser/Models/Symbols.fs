@@ -28,6 +28,7 @@ module Symbols =
         | Paragraph of SimpleSymbol
         | UnorderedList of MarkupList
         | OrderedList of MarkupList
+        | BlockQuote of SimpleSymbol
 
     and DocumentSymbol (content: Block list) =
         member this.Content = content

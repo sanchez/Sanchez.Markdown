@@ -40,6 +40,7 @@ let private blockParsers: List<string list -> BlockParserType -> InlineParserTyp
     Heading.Parse
     UnOrderedList.Parse
     NewLine.Parse
+    Blockquote.Parse
 
     Paragraph.Parse
 ]

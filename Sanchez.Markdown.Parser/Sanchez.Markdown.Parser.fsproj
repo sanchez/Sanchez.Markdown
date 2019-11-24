@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="Models\Symbols.fs" />
     <Compile Include="Models\Parsers.fs" />
+    <Compile Include="Parsers\Block\Blockquote.fs" />
     <Compile Include="Parsers\Block\Paragraph.fs" />
     <Compile Include="Parsers\Block\UnOrderedList.fs" />
     <Compile Include="Parsers\Block\Heading.fs" />
