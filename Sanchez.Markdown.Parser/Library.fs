@@ -1,6 +1,6 @@
 ﻿namespace Sanchez.Markdown.Parser
 
-open Sanchez.Markdown.Parser.Parsers
+open Sanchez.Markdown.Parser.Parsers.Parser
 
 module Parser =
 
@@ -10,4 +10,4 @@ module Parser =
             |> Array.toList
             |> List.map (fun x -> x.TrimEnd ())
 
-        BlockParser.ParseLines lines
+        ParseLines lines

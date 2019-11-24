@@ -6,8 +6,14 @@
 
   <ItemGroup>
     <Compile Include="Models\Symbols.fs" />
-    <Compile Include="Parsers\InlineParser.fs" />
-    <Compile Include="Parsers\BlockParser.fs" />
+    <Compile Include="Models\Parsers.fs" />
+    <Compile Include="Parsers\Block\Paragraph.fs" />
+    <Compile Include="Parsers\Block\UnOrderedList.fs" />
+    <Compile Include="Parsers\Block\Heading.fs" />
+    <Compile Include="Parsers\Block\NewLine.fs" />
+    <Compile Include="Parsers\Inline\BoldItalics.fs" />
+    <Compile Include="Parsers\Inline\PlainText.fs" />
+    <Compile Include="Parsers\Parser.fs" />
     <Compile Include="IServices.fs" />
     <Compile Include="Library.fs" />
   </ItemGroup>
