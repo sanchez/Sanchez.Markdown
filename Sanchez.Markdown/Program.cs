@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sanchez.Markdown.Parser;
+using System;
 using System.IO;
 
 namespace Sanchez.Markdown
@@ -10,7 +11,7 @@ namespace Sanchez.Markdown
             var fullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "test.md");
             var data = File.ReadAllText(fullFilePath);
 
-            var res = Parser.Parser.ParseString(data);
+            var res = MarkdownParser.ParseString(data);
 
             Console.WriteLine("Hello World!");
         }

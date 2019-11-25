@@ -2,7 +2,7 @@
 
 open Sanchez.Markdown.Parser.Parsers.Parser
 
-module Parser =
+module MarkdownParser =
 
     let ParseString (document: string) =
         let lines = 
