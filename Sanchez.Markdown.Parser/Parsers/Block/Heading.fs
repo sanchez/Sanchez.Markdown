@@ -1,8 +1,8 @@
 ﻿module Sanchez.Markdown.Parser.Parsers.Block.Heading
 
 open Sanchez.Markdown.Parser.Models.Parsers
-open Sanchez.Markdown.Parser.Models
 open System.Text.RegularExpressions
+open Sanchez.Markdown.Symbols.Block
 
 let private headingMatch = new Regex (@"^(#{1,6})\ ?(.*)$", RegexOptions.Compiled)
 
@@ -15,7 +15,7 @@ let Parse (lines: string list) (blockParser: BlockParserType) (inlineParser: Inl
         title
         |> Seq.toList
         |> inlineParser <| []
-        |> (fun x -> Symbols.HeadingSymbol (depth, x))
-        |> Symbols.Heading
+        |> (fun x -> HeadingSymbol (depth, x))
+        |> Heading
         |> (fun x -> (Some x, lines.Tail))
     else (None, lines)

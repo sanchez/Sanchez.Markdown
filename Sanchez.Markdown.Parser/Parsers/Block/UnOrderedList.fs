@@ -1,8 +1,9 @@
 ﻿module Sanchez.Markdown.Parser.Parsers.Block.UnOrderedList
 
 open Sanchez.Markdown.Parser.Models.Parsers
-open Sanchez.Markdown.Parser.Models
 open System.Text.RegularExpressions
+open Sanchez.Markdown.Symbols.Inline
+open Sanchez.Markdown.Symbols.Block
 
 let private unorderedMatch = new Regex (@"^(\s)*[-\.] (.*)$", RegexOptions.Compiled)
 
@@ -22,7 +23,7 @@ let rec private IterateUnordered (lines: string list) (blockParser: BlockParserT
     else
         ([], lines)
 
-let rec private SortItems (items: (int * Symbols.Inline list) list) (currentDepth: int) =
+let rec private SortItems (items: (int * Inline list) list) (currentDepth: int) =
     if items.Length = 0 then
         ([], items)
     else
@@ -31,13 +32,13 @@ let rec private SortItems (items: (int * Symbols.Inline list) list) (currentDept
             let (children, remainderLines) = SortItems items itemDepth
             let group = 
                 children
-                |> Symbols.GroupSymbol
-                |> Symbols.ListGroup
+                |> GroupSymbol
+                |> ListGroup
 
             let (siblings, remainderRemadinderLines) = SortItems remainderLines currentDepth
             (group::siblings, remainderRemadinderLines)
         elif itemDepth = currentDepth then
-            let item = itemContent |> Symbols.ListItem
+            let item = itemContent |> ListItem
             let (siblings, remainderLines) = SortItems items.Tail currentDepth
             (item::siblings, remainderLines)
         else
@@ -48,9 +49,9 @@ let Parse (lines: string list) (blockParser: BlockParserType) (inlineParser: Inl
     if items.Length <> 0 then
         let (items, _) = SortItems items 0
         items
-        |> Symbols.GroupSymbol
-        |> Symbols.ListGroup
-        |> Symbols.OrderedList
+        |> GroupSymbol
+        |> ListGroup
+        |> UnorderedList
         |> Some
         |> (fun x -> (x, remainderLines))
     else

@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Models\Symbols.fs" />
     <Compile Include="Models\Parsers.fs" />
     <Compile Include="Parsers\Block\Blockquote.fs" />
     <Compile Include="Parsers\Block\Paragraph.fs" />
@@ -19,4 +18,7 @@
     <Compile Include="Library.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sanchez.Markdown.Symbols\Sanchez.Markdown.Symbols.fsproj" />
+  </ItemGroup>
 </Project>

@@ -1,12 +1,13 @@
 ﻿module Sanchez.Markdown.Parser.Parsers.Parser
 
-open Sanchez.Markdown.Parser.Models
 open Sanchez.Markdown.Parser.Models.Parsers
 open Sanchez.Markdown.Parser.Parsers.Block
 open Sanchez.Markdown.Parser.Parsers.Inline
 open Sanchez.Markdown.Parser.Parsers.Inline.PlainText
+open Sanchez.Markdown.Symbols.Inline
+open Sanchez.Markdown.Symbols.Block
 
-let private inlineParsers: List<char list -> InlineParserType -> Symbols.Inline option * char list> = [
+let private inlineParsers: List<char list -> InlineParserType -> Inline option * char list> = [
     BoldItalics.Parse
 ]
 
@@ -36,7 +37,7 @@ let rec ParseInlines (chars: char list) (emptyChars: char list) =
     |> List.filter (fun x -> x.IsSome)
     |> List.map (fun x -> x.Value)
 
-let private blockParsers: List<string list -> BlockParserType -> InlineParserType -> Symbols.Block option * string list> = [
+let private blockParsers: List<string list -> BlockParserType -> InlineParserType -> Block option * string list> = [
     Heading.Parse
     UnOrderedList.Parse
     NewLine.Parse

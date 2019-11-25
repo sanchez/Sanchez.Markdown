@@ -1,11 +1,11 @@
 ﻿module Sanchez.Markdown.Parser.Parsers.Inline.PlainText
 
-open Sanchez.Markdown.Parser.Models
+open Sanchez.Markdown.Symbols.Inline
 
 let CreatePlainText (chars: char list) =
     chars
     |> Array.ofList
     |> System.String.Concat
-    |> Symbols.PlainTextSymbol
-    |> Symbols.PlainText
+    |> PlainTextSymbol
+    |> PlainText
     |> Some

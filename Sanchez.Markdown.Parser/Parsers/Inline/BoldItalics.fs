@@ -1,7 +1,7 @@
 ﻿module Sanchez.Markdown.Parser.Parsers.Inline.BoldItalics
 
-open Sanchez.Markdown.Parser.Models
 open Sanchez.Markdown.Parser.Models.Parsers
+open Sanchez.Markdown.Symbols.Inline
 
 let rec private ProcessBold (characters: char list) (startChar: char) (containingChars: char list) (processor: InlineParserType) =
     if characters.Length = 1 then
@@ -11,8 +11,8 @@ let rec private ProcessBold (characters: char list) (startChar: char) (containin
         let nextChar = characters.Tail.Head
         if nextChar = currentChar && currentChar = startChar then
             processor containingChars []
-            |> Symbols.SimpleInlineSymbol
-            |> Symbols.Bold
+            |> SimpleInlineSymbol
+            |> Bold
             |> (fun x -> (Some x, characters.Tail.Tail))
         else
             ProcessBold characters.Tail startChar (containingChars @ [characters.Head]) processor
@@ -24,8 +24,8 @@ let rec private ProcessItalics (characters: char list) (startChar: char) (contai
         let currentChar = characters.Head
         if currentChar = startChar then
             processor containingChars []
-            |> Symbols.SimpleInlineSymbol
-            |> Symbols.Italics
+            |> SimpleInlineSymbol
+            |> Italics
             |> (fun x -> (Some x, characters.Tail))
         else
             ProcessItalics characters.Tail startChar (containingChars @ [characters.Head]) processor
