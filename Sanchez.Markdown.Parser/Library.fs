@@ -1,6 +1,7 @@
 ﻿namespace Sanchez.Markdown.Parser
 
 open Sanchez.Markdown.Parser.Parsers.Parser
+open Sanchez.Markdown.Symbols.Block
 
 module MarkdownParser =
 
@@ -11,3 +12,5 @@ module MarkdownParser =
             |> List.map (fun x -> x.TrimEnd ())
 
         ParseLines lines
+        |> DocumentSymbol
+        |> Document
