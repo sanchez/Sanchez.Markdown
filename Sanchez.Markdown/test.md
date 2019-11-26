@@ -21,6 +21,6 @@ Now I should be able to show some lists and stuff here:
    3. With a subitem or two
 3. and something for everyone
 
-So right about now I should also be able to add in a link to [Google](https://google.com) however I am well aware this need a massive rewrite somehow too. Cries for future me
+So right about now I should also be able to add in a link to [Google](https://google.com) however I am well aware this need a massive rewrite somehow too. Cries for future me ![Example **Picture**](https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Octicons-markdown.svg/1024px-Octicons-markdown.svg.png) afterwards
 
 > Sometimes though you just need to add a blockquote in with some **bolding**

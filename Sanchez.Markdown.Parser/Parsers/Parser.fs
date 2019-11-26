@@ -9,6 +9,8 @@ open Sanchez.Markdown.Symbols.Block
 
 let private inlineParsers: List<char list -> InlineParserType -> Inline option * char list> = [
     BoldItalics.Parse
+    Link.Parse
+    Image.Parse
 ]
 
 let rec processInline (chars: char list) (emptyChars: char list) (processor: InlineParserType) =
