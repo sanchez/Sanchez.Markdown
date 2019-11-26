@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchez.Markdown", "Sanchez.Markdown\Sanchez.Markdown.csproj", "{52CDC29C-386B-4E8D-B546-280E9C226EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanchez.Markdown", "Sanchez.Markdown\Sanchez.Markdown.csproj", "{52CDC29C-386B-4E8D-B546-280E9C226EC8}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Parser", "Sanchez.Markdown.Parser\Sanchez.Markdown.Parser.fsproj", "{01D45245-7DBA-44AA-923D-AAD95708AFB0}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sanchez.Markdown.Parser", "Sanchez.Markdown.Parser\Sanchez.Markdown.Parser.fsproj", "{01D45245-7DBA-44AA-923D-AAD95708AFB0}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Symbols", "Sanchez.Markdown.Symbols\Sanchez.Markdown.Symbols.fsproj", "{BE4F58CC-E0E1-4A94-B10D-321BE5954F6C}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sanchez.Markdown.Symbols", "Sanchez.Markdown.Symbols\Sanchez.Markdown.Symbols.fsproj", "{BE4F58CC-E0E1-4A94-B10D-321BE5954F6C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Renderers", "Sanchez.Markdown.Renderers\Sanchez.Markdown.Renderers.fsproj", "{B0598149-25F2-472F-AF27-8B9E1693B905}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Renderers.Text", "Sanchez.Markdown.Renderers.Text\Sanchez.Markdown.Renderers.Text.fsproj", "{354507B3-2EE7-4576-89B9-29A916C05E79}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Renderers.Html", "Sanchez.Markdown.Renderers.Html\Sanchez.Markdown.Renderers.Html.fsproj", "{D55D02DC-DF05-43C2-9B83-60DBFB139917}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sanchez.Markdown.Renderers.Blazor", "Sanchez.Markdown.Renderers.Blazor\Sanchez.Markdown.Renderers.Blazor.fsproj", "{CFD8BB78-D228-494F-B431-888FAEC1100A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +35,22 @@ Global
 		{BE4F58CC-E0E1-4A94-B10D-321BE5954F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE4F58CC-E0E1-4A94-B10D-321BE5954F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE4F58CC-E0E1-4A94-B10D-321BE5954F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0598149-25F2-472F-AF27-8B9E1693B905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0598149-25F2-472F-AF27-8B9E1693B905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0598149-25F2-472F-AF27-8B9E1693B905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0598149-25F2-472F-AF27-8B9E1693B905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{354507B3-2EE7-4576-89B9-29A916C05E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{354507B3-2EE7-4576-89B9-29A916C05E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{354507B3-2EE7-4576-89B9-29A916C05E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{354507B3-2EE7-4576-89B9-29A916C05E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D55D02DC-DF05-43C2-9B83-60DBFB139917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D55D02DC-DF05-43C2-9B83-60DBFB139917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D55D02DC-DF05-43C2-9B83-60DBFB139917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D55D02DC-DF05-43C2-9B83-60DBFB139917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD8BB78-D228-494F-B431-888FAEC1100A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD8BB78-D228-494F-B431-888FAEC1100A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD8BB78-D228-494F-B431-888FAEC1100A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD8BB78-D228-494F-B431-888FAEC1100A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
