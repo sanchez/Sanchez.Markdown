@@ -1,5 +1,9 @@
 ﻿namespace Sanchez.Markdown.Renderers.Text
 
-module Say =
-    let hello name =
-        printfn "Hello %s" name
+open Sanchez.Markdown.Symbols.Block
+open Sanchez.Markdown.Renderers
+
+type TextRenderer =
+    inherit BaseRenderer<string, string>
+
+    override this.CombineNodes nodes = "Hello"

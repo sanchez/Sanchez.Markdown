@@ -16,10 +16,3 @@ and PlainTextSymbol (content: string) =
 and LinkSymbol (content: Inline list, link: string) =
     member this.Content = content
     member this.Link = link
-
-type MarkupList =
-    | ListItem of Inline list
-    | ListGroup of GroupSymbol
-
-and GroupSymbol (content: MarkupList list) =
-    member this.Content = content

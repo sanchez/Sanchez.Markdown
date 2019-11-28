@@ -2,6 +2,13 @@
 
 open Sanchez.Markdown.Symbols.Inline
 
+type MarkupList =
+    | ListItem of Inline list
+    | ListGroup of GroupSymbol
+
+and GroupSymbol (content: MarkupList list) =
+    member this.Content = content
+
 type Block =
     | Document of DocumentSymbol
     | Heading of HeadingSymbol
