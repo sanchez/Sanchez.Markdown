@@ -6,7 +6,7 @@ type IRenderer<'T> =
     abstract member Render: symbol: DocumentSymbol -> 'T
 
 [<AbstractClass>]
-type BaseRenderer<'T, 'U> =
+type BaseRenderer<'T, 'U>() =
     abstract member CombineNodes: 'U list -> 'T
 
     abstract member RenderGroup: 'U list -> 'U

@@ -8,6 +8,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Sanchez.Markdown.Parser\Sanchez.Markdown.Parser.fsproj" />
     <ProjectReference Include="..\Sanchez.Markdown.Symbols\Sanchez.Markdown.Symbols.fsproj" />
+    <ProjectReference Include="..\Sanchez.Markdown.Renderers.Text\Sanchez.Markdown.Renderers.Text.fsproj" />
+    <ProjectReference Include="..\Sanchez.Markdown.Renderers\Sanchez.Markdown.Renderers.fsproj" />
   </ItemGroup>
 
 </Project>
