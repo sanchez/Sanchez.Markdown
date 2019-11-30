@@ -13,4 +13,3 @@ module MarkdownParser =
 
         ParseLines lines
         |> DocumentSymbol
-        |> Document

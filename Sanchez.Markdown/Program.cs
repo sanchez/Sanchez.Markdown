@@ -1,4 +1,5 @@
 ﻿using Sanchez.Markdown.Parser;
+using Sanchez.Markdown.Renderers;
 using Sanchez.Markdown.Renderers.Text;
 using System;
 using System.IO;
@@ -13,7 +14,8 @@ namespace Sanchez.Markdown
             var data = File.ReadAllText(fullFilePath);
 
             var res = MarkdownParser.ParseString(data);
-            var renderer = new TextRenderer();
+            //var renderer = new TextRenderer();
+            IRenderer<string> renderer = new TextRenderer();
             var result = renderer.Render(res);
 
             Console.WriteLine("Hello World!");
