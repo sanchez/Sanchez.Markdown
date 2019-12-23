@@ -1,0 +1,23 @@
+name: NuGet Release
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+    name: Publish NuGet Packages
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+          
+      - name: Publish Symbols
+        uses: rohith/publish-nuget@v1
+        with:
+          nuget_key: ${{secrets.NUGET_API_KEY}}
+          project_dir: Sanchez.Markdown
