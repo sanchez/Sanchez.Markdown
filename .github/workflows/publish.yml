@@ -16,8 +16,8 @@ jobs:
         with:
           fetch-depth: 2
           
-      - name: Publish Symbols
+      - name: Publish Sanchez.Markdown.Symbols
         uses: rohith/publish-nuget@v1
         with:
           nuget_key: ${{secrets.NUGET_API_KEY}}
-          project_dir: Sanchez.Markdown
+          project_dir: Sanchez.Markdown/Sanchez.Markdown.Symbols
