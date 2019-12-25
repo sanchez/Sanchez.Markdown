@@ -13,23 +13,28 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
           
-      - name: Publish Sanchez.Markdown.Symbols
-        uses: rohith/publish-nuget@v1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1.0.0
         with:
-          nuget_key: ${{secrets.NUGET_API_KEY}}
-          project_dir: Sanchez.Markdown.Symbols
+          version: 3.1.100
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+      
+      - name: Build Entire Solution
+        run: dotnet build --configuration Release
+      
+      - name: Pack Solution
+        run: dotnet pack --configuration Release
+      
+      - name: Publish Sanchez.Markdown.Symbols
+        run: dotnet nuget push Sanchez.Markdown.Symbols/bin/Release/*.nupkg
           
       - name: Publish Sanchez.Markdown.Parser
-        uses: rohith/publish-nuget@v1
-        with:
-          nuget_key: ${{secrets.NUGET_API_KEY}}
-          project_dir: Sanchez.Markdown.Parser
+        run: dotnet nuget push Sanchez.Markdown.Parser/bin/Release/*.nupkg
             
       - name: Publish Sanchez.Markdown.Renderers
-        uses: rohith/publish-nuget@v1
-        with:
-          nuget_key: ${{secrets.NUGET_API_KEY}}
-          project_dir: Sanchez.Markdown.Renderers
+        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg
+        
+      - name: Publish Sanchez.Markdown.Renderers.Blazor
+        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg
