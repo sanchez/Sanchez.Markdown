@@ -24,12 +24,12 @@ jobs:
           
       - name: Publish Sanchez.Markdown.Parser
         uses: rohith/publish-nuget@v1
-          with:
-            nuget_key: ${{secrets.NUGET_API_KEY}}
-            project_dir: Sanchez.Markdown.Parser
+        with:
+          nuget_key: ${{secrets.NUGET_API_KEY}}
+          project_dir: Sanchez.Markdown.Parser
             
       - name: Publish Sanchez.Markdown.Renderers
         uses: rohith/publish-nuget@v1
-          with:
-            nuget_key: ${{secrets.NUGET_API_KEY}}
-            project_dir: Sanchez.Markdown.Renderers
+        with:
+          nuget_key: ${{secrets.NUGET_API_KEY}}
+          project_dir: Sanchez.Markdown.Renderers
