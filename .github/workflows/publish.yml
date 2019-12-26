@@ -29,13 +29,13 @@ jobs:
         run: dotnet pack --configuration Release
       
       - name: Publish Sanchez.Markdown.Symbols
-        run: dotnet nuget push Sanchez.Markdown.Symbols/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push Sanchez.Markdown.Symbols/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate
           
       - name: Publish Sanchez.Markdown.Parser
-        run: dotnet nuget push Sanchez.Markdown.Parser/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push Sanchez.Markdown.Parser/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate
             
       - name: Publish Sanchez.Markdown.Renderers
-        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate
         
       - name: Publish Sanchez.Markdown.Renderers.Blazor
-        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push Sanchez.Markdown.Renderers/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate
