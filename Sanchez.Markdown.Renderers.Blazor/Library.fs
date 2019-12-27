@@ -102,6 +102,15 @@ type BlazorRenderer() =
             builder.AddContent(1, renderInline symbol.Content)
             builder.CloseElement())
         
+    let renderCodeBlock (blockRenderer: BlockRenderer<RenderFragment>) (symbol: CodeBlockSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            symbol.Content
+            |> List.map (fun x -> x + "\n")
+            |> List.reduce (+)
+            |> (fun x -> builder.AddContent(1, x))
+            builder.CloseElement())
+        
     let rec renderBlock symbol =
         match symbol with
         | Document d ->
@@ -113,6 +122,7 @@ type BlazorRenderer() =
         | Paragraph s -> renderParagraph renderBlock s
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
+        | CodeBlock s -> renderCodeBlock renderBlock s
     
     interface IRenderer<RenderFragment> with
         member this.Render symbol =

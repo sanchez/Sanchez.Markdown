@@ -60,6 +60,9 @@ type TextRenderer() =
 
     let renderBlockQuote (blockRenderer: BlockRenderer<string>) (symbol: SimpleSymbol) =
         "BlockQuote(" + (renderInline symbol.Content) + ")"
+        
+    let renderCodeBlock (blockRenderer: BlockRenderer<string>) (symbol: CodeBlockSymbol) =
+        "Code Block(" + (List.reduce (+) symbol.Content) + ")"
 
     let rec renderBlock symbol : string =
         match symbol with
@@ -72,6 +75,7 @@ type TextRenderer() =
         | Paragraph s -> renderParagraph renderBlock s
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
+        | CodeBlock s -> renderCodeBlock renderBlock s
 
     interface IRenderer<string> with
         member this.Render symbol =

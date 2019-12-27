@@ -34,6 +34,7 @@ let private blockParsers: List<string list -> BlockParserType -> InlineParserTyp
     UnOrderedList.Parse
     NewLine.Parse
     Blockquote.Parse
+    CodeBlock.Parse
 
     Paragraph.Parse
 ]

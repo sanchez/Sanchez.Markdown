@@ -15,6 +15,7 @@
     <Compile Include="Parsers\Block\UnOrderedList.fs" />
     <Compile Include="Parsers\Block\Heading.fs" />
     <Compile Include="Parsers\Block\NewLine.fs" />
+    <Compile Include="Parsers\Block\CodeBlock.fs" />
     <Compile Include="Parsers\Inline\Utils.fs" />
     <Compile Include="Parsers\Inline\Image.fs" />
     <Compile Include="Parsers\Inline\Link.fs" />

@@ -16,6 +16,7 @@ type Block =
     | Paragraph of SimpleSymbol
     | UnorderedList of MarkupList
     | BlockQuote of SimpleSymbol
+    | CodeBlock of CodeBlockSymbol
 
 and DocumentSymbol (content: Block list) =
     member this.Content = content
@@ -26,5 +27,8 @@ and SimpleSymbol (content: Inline list) =
 and HeadingSymbol (depth: int, title: Inline list) =
     member this.Depth = depth
     member this.Title = title
+    
+and CodeBlockSymbol (content: string list) =
+    member this.Content = content
 
 and BlankSymbol () = class end
