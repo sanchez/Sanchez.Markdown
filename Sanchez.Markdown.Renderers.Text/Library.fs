@@ -17,6 +17,9 @@ type TextRenderer() =
         b.Content
         |> inlineRenderer
         |> (fun x -> "Italics(" + x + ")")
+        
+    let renderCodeStatement (inlineRenderer: InlineRenderer<string>) (b: PlainTextSymbol) =
+        "Code(" + b.Content + ")"
 
     let renderPlainText (inlineRenderer: InlineRenderer<string>) (b: PlainTextSymbol) =
         b.Content
@@ -40,6 +43,7 @@ type TextRenderer() =
             | PlainText s -> renderPlainText renderInline s
             | Link s -> renderLink renderInline s
             | Image s -> renderImage renderInline s
+            | CodeStatement s -> renderCodeStatement renderInline s
         )
         |> renderInlineGroup renderInline
 

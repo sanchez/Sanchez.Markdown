@@ -27,4 +27,6 @@ So right about now I should also be able to add in a link to [Google](https://go
 Inside the code block now with **not bolded markup**
 ```
 
+This is some `code` here for some use
+
 > Sometimes though you just need to add a blockquote in with some **bolding**

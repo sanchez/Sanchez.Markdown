@@ -21,6 +21,7 @@
     <Compile Include="Parsers\Inline\Link.fs" />
     <Compile Include="Parsers\Inline\BoldItalics.fs" />
     <Compile Include="Parsers\Inline\PlainText.fs" />
+    <Compile Include="Parsers\Inline\CodeStatement.fs" />
     <Compile Include="Parsers\Parser.fs" />
     <Compile Include="IServices.fs" />
     <Compile Include="Library.fs" />

@@ -57,6 +57,12 @@ type BlazorRenderer() =
                 builder.AddContent(2, content)
                 builder.CloseElement()))
         
+    let renderCodeStatement (inlineRenderer: InlineRenderer<RenderFragment>) (b: PlainTextSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            builder.AddContent(1, b.Content)
+            builder.CloseElement())
+        
     let rec renderInline (symbol: Inline list) =
         symbol
         |> List.map (fun x ->
@@ -66,6 +72,7 @@ type BlazorRenderer() =
             | PlainText s -> renderPlainText renderInline s
             | Link s -> renderLink renderInline s
             | Image s -> renderImage renderInline s
+            | CodeStatement s -> renderCodeStatement renderInline s
             )
         |> renderInlineGroup renderInline
         
