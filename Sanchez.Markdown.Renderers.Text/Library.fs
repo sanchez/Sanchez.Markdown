@@ -17,6 +17,9 @@ type TextRenderer() =
         b.Content
         |> inlineRenderer
         |> (fun x -> "Italics(" + x + ")")
+        
+    let renderCodeStatement (inlineRenderer: InlineRenderer<string>) (b: PlainTextSymbol) =
+        "Code(" + b.Content + ")"
 
     let renderPlainText (inlineRenderer: InlineRenderer<string>) (b: PlainTextSymbol) =
         b.Content
@@ -40,6 +43,7 @@ type TextRenderer() =
             | PlainText s -> renderPlainText renderInline s
             | Link s -> renderLink renderInline s
             | Image s -> renderImage renderInline s
+            | CodeStatement s -> renderCodeStatement renderInline s
         )
         |> renderInlineGroup renderInline
 
@@ -60,6 +64,9 @@ type TextRenderer() =
 
     let renderBlockQuote (blockRenderer: BlockRenderer<string>) (symbol: SimpleSymbol) =
         "BlockQuote(" + (renderInline symbol.Content) + ")"
+        
+    let renderCodeBlock (blockRenderer: BlockRenderer<string>) (symbol: CodeBlockSymbol) =
+        "Code Block(" + (List.reduce (+) symbol.Content) + ")"
 
     let rec renderBlock symbol : string =
         match symbol with
@@ -72,6 +79,7 @@ type TextRenderer() =
         | Paragraph s -> renderParagraph renderBlock s
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
+        | CodeBlock s -> renderCodeBlock renderBlock s
 
     interface IRenderer<string> with
         member this.Render symbol =

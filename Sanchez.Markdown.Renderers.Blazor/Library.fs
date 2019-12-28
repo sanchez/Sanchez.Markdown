@@ -57,6 +57,12 @@ type BlazorRenderer() =
                 builder.AddContent(2, content)
                 builder.CloseElement()))
         
+    let renderCodeStatement (inlineRenderer: InlineRenderer<RenderFragment>) (b: PlainTextSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            builder.AddContent(1, b.Content)
+            builder.CloseElement())
+        
     let rec renderInline (symbol: Inline list) =
         symbol
         |> List.map (fun x ->
@@ -66,6 +72,7 @@ type BlazorRenderer() =
             | PlainText s -> renderPlainText renderInline s
             | Link s -> renderLink renderInline s
             | Image s -> renderImage renderInline s
+            | CodeStatement s -> renderCodeStatement renderInline s
             )
         |> renderInlineGroup renderInline
         
@@ -102,6 +109,15 @@ type BlazorRenderer() =
             builder.AddContent(1, renderInline symbol.Content)
             builder.CloseElement())
         
+    let renderCodeBlock (blockRenderer: BlockRenderer<RenderFragment>) (symbol: CodeBlockSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            symbol.Content
+            |> List.map (fun x -> x + "\n")
+            |> List.reduce (+)
+            |> (fun x -> builder.AddContent(1, x))
+            builder.CloseElement())
+        
     let rec renderBlock symbol =
         match symbol with
         | Document d ->
@@ -113,6 +129,7 @@ type BlazorRenderer() =
         | Paragraph s -> renderParagraph renderBlock s
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
+        | CodeBlock s -> renderCodeBlock renderBlock s
     
     interface IRenderer<RenderFragment> with
         member this.Render symbol =

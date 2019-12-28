@@ -11,14 +11,16 @@ let private inlineParsers: List<char list -> InlineParserType -> Inline option *
     BoldItalics.Parse
     Link.Parse
     Image.Parse
+    CodeStatement.Parse
 ]
 
 let rec processInline (chars: char list) (emptyChars: char list) (processor: InlineParserType) =
     if chars.IsEmpty then [CreatePlainText emptyChars]
     else
         inlineParsers
-        |> List.map (fun x -> x chars processor)
-        |> List.tryFind (fst >> Option.isSome)
+        |> List.toSeq
+        |> Seq.map (fun x -> x chars processor)
+        |> Seq.tryFind (fst >> Option.isSome)
         |> Option.map (fun (s, remainderChars) -> 
             let plain = CreatePlainText emptyChars
             plain::s::processInline remainderChars [] processor)
@@ -34,6 +36,7 @@ let private blockParsers: List<string list -> BlockParserType -> InlineParserTyp
     UnOrderedList.Parse
     NewLine.Parse
     Blockquote.Parse
+    CodeBlock.Parse
 
     Paragraph.Parse
 ]
@@ -42,7 +45,8 @@ let rec ParseLines (lines: string list) =
     if lines.IsEmpty then []
     else
         blockParsers
-        |> List.map (fun x -> x lines ParseLines ParseInlines)
-        |> List.tryFind (fst >> Option.isSome)
+        |> List.toSeq
+        |> Seq.map (fun x -> x lines ParseLines ParseInlines)
+        |> Seq.tryFind (fst >> Option.isSome)
         |> Option.map (fun (s, remainderLines) -> s.Value::ParseLines remainderLines)
         |> Option.defaultWith (fun () -> ParseLines lines.Tail)
