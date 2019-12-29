@@ -18,7 +18,8 @@ type Block =
     | BlockQuote of SimpleSymbol
     | CodeBlock of CodeBlockSymbol
 
-and DocumentSymbol (content: Block list) =
+and DocumentSymbol (metadata: Map<string, string>, content: Block list) =
+    member this.Metadata = metadata
     member this.Content = content
 
 and SimpleSymbol (content: Inline list) =
