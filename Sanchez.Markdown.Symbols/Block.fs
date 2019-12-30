@@ -21,8 +21,13 @@ type Block =
 and DocumentSymbol (metadata: Map<string, string>, content: Block list) =
     member this.Metadata = metadata
     member this.Content = content
+    
     member this.GetMetaField key =
         metadata |> Map.tryFind key
+    
+    member this.Title = this.GetMetaField "title" |> Option.defaultValue "Invalid Title"
+    member this.Author = this.GetMetaField "author" |> Option.defaultValue "Invalid Author"
+    member this.Date = this.GetMetaField "date" |> Option.defaultValue ""
 
 and SimpleSymbol (content: Inline list) =
     member this.Content = content
