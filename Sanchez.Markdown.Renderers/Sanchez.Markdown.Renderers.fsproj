@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>0.1.1</PackageVersion>
+    <PackageVersion>0.1.2</PackageVersion>
     <PackageLicenseUrl>https://choosealicense.com/licenses/mpl-2.0/</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/sanchez/Sanchez.Markdown/tree/master/Sanchez.Markdown.Renderers</RepositoryUrl>
   </PropertyGroup>
