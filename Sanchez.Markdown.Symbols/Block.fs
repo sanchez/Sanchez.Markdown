@@ -21,6 +21,8 @@ type Block =
 and DocumentSymbol (metadata: Map<string, string>, content: Block list) =
     member this.Metadata = metadata
     member this.Content = content
+    member this.GetMetaField key =
+        metadata |> Map.tryFind key
 
 and SimpleSymbol (content: Inline list) =
     member this.Content = content
