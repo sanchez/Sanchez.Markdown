@@ -13,6 +13,7 @@ namespace Sanchez.Markdown
             var fullFilePath = Path.Combine(Directory.GetCurrentDirectory(), "test.md");
             var data = File.ReadAllText(fullFilePath);
 
+            var metadata = MarkdownParser.ParseMetadata(data);
             var res = MarkdownParser.ParseString(data);
             //var renderer = new TextRenderer();
             IRenderer<string> renderer = new TextRenderer();
