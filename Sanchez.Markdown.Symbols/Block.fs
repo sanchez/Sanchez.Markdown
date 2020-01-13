@@ -17,6 +17,7 @@ type Block =
     | UnorderedList of MarkupList
     | BlockQuote of SimpleSymbol
     | CodeBlock of CodeBlockSymbol
+    | Comment of string
 
 and DocumentSymbol (metadata: Map<string, string>, content: Block list) =
     member this.Metadata = metadata

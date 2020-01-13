@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>0.1.5</PackageVersion>
+    <PackageVersion>0.1.6</PackageVersion>
     <PackageLicenseUrl>https://choosealicense.com/licenses/mpl-2.0/</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/sanchez/Sanchez.Markdown/tree/master/Sanchez.Markdown.Parser</RepositoryUrl>
   </PropertyGroup>
@@ -17,6 +17,7 @@
     <Compile Include="Parsers\Block\NewLine.fs" />
     <Compile Include="Parsers\Block\CodeBlock.fs" />
     <Compile Include="Parsers\Block\Metadata.fs" />
+    <Compile Include="Parsers\Block\Comment.fs" />
     <Compile Include="Parsers\Inline\Utils.fs" />
     <Compile Include="Parsers\Inline\Image.fs" />
     <Compile Include="Parsers\Inline\Link.fs" />

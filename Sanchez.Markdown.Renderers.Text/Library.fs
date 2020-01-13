@@ -67,6 +67,9 @@ type TextRenderer() =
         
     let renderCodeBlock (blockRenderer: BlockRenderer<string>) (symbol: CodeBlockSymbol) =
         "Code Block(" + (List.reduce (+) symbol.Content) + ")"
+        
+    let renderComment (blockRenderer: BlockRenderer<string>) (symbol: string) =
+        ""
 
     let rec renderBlock symbol : string =
         match symbol with
@@ -80,6 +83,7 @@ type TextRenderer() =
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
         | CodeBlock s -> renderCodeBlock renderBlock s
+        | Comment s -> renderComment renderBlock s
 
     interface IRenderer<string> with
         member this.Render symbol =

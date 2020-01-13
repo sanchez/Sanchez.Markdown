@@ -118,6 +118,10 @@ type BlazorRenderer() =
             |> (fun x -> builder.AddContent(1, x))
             builder.CloseElement())
         
+    let renderComment (blockRenderer: BlockRenderer<RenderFragment>) (symbol: string) =
+        new RenderFragment(fun builder ->
+            0 |> ignore)
+        
     let rec renderBlock symbol =
         match symbol with
         | Document d ->
@@ -130,6 +134,7 @@ type BlazorRenderer() =
         | UnorderedList s -> renderUnorderedList renderBlock s
         | BlockQuote s -> renderBlockQuote renderBlock s
         | CodeBlock s -> renderCodeBlock renderBlock s
+        | Comment s -> renderComment renderBlock s
     
     interface IRenderer<RenderFragment> with
         member this.Render symbol =
