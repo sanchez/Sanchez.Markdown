@@ -4,6 +4,8 @@ author: Daniel Fitz
 date: 30th Dec
 ---
 
+!date hello there
+
 # Hello World
 ## Heading Level 2
 ### Heading Level 3

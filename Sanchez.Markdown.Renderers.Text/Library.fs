@@ -70,23 +70,27 @@ type TextRenderer() =
         
     let renderComment (blockRenderer: BlockRenderer<string>) (symbol: string) =
         ""
+        
+    let renderSpecialFunction (blockRenderer: BlockRenderer<string>) (symbol: string * string) (specialLookup: string -> string -> string) =
+        specialLookup (fst symbol) (snd symbol)
 
-    let rec renderBlock symbol : string =
+    let rec renderBlock (specialLookup: string -> string -> string) symbol =
         match symbol with
         | Document d ->
             d.Content
-            |> List.map renderBlock
-            |> renderGroup renderBlock
-        | Heading s -> renderHeading renderBlock s
-        | NewLine s -> renderNewLine renderBlock s
-        | Paragraph s -> renderParagraph renderBlock s
-        | UnorderedList s -> renderUnorderedList renderBlock s
-        | BlockQuote s -> renderBlockQuote renderBlock s
-        | CodeBlock s -> renderCodeBlock renderBlock s
-        | Comment s -> renderComment renderBlock s
+            |> List.map (renderBlock specialLookup)
+            |> renderGroup (renderBlock specialLookup)
+        | Heading s -> renderHeading (renderBlock specialLookup) s
+        | NewLine s -> renderNewLine (renderBlock specialLookup) s
+        | Paragraph s -> renderParagraph (renderBlock specialLookup) s
+        | UnorderedList s -> renderUnorderedList (renderBlock specialLookup) s
+        | BlockQuote s -> renderBlockQuote (renderBlock specialLookup) s
+        | CodeBlock s -> renderCodeBlock (renderBlock specialLookup) s
+        | Comment s -> renderComment (renderBlock specialLookup) s
+        | SpecialFunction (action, args) -> renderSpecialFunction (renderBlock specialLookup) (action, args) specialLookup
 
     interface IRenderer<string> with
-        member this.Render symbol =
+        member this.Render symbol specialLookup =
             symbol.Content
-            |> List.map (fun x -> renderBlock x)
+            |> List.map (fun x -> renderBlock specialLookup x)
             |> List.reduce (fun acc x -> acc + "\n" + x)

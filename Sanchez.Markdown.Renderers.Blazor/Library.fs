@@ -122,22 +122,38 @@ type BlazorRenderer() =
         new RenderFragment(fun builder ->
             0 |> ignore)
         
-    let rec renderBlock symbol =
+    let renderSpecialFunction (blockRenderer: BlockRenderer<RenderFragment>) (symbol: string * string) (specialLookup: string -> string -> RenderFragment) =
+        let special = specialLookup (fst symbol) (snd symbol)
+        if special = null then
+            new RenderFragment(fun builder ->
+                builder.OpenElement(0, "div")
+                fst symbol
+                |> sprintf "Missing Symbol Render for: %s"
+                |> (fun x -> builder.AddContent(1, x))
+                builder.CloseElement())
+        else special
+        
+    let rec renderBlock specialLookup symbol =
+        let nextRender = renderBlock specialLookup
+        
         match symbol with
         | Document d ->
             d.Content
-            |> List.map renderBlock
-            |> renderGroup renderBlock
-        | Heading s -> renderHeading renderBlock s
-        | NewLine s -> renderNewLine renderBlock s
-        | Paragraph s -> renderParagraph renderBlock s
-        | UnorderedList s -> renderUnorderedList renderBlock s
-        | BlockQuote s -> renderBlockQuote renderBlock s
-        | CodeBlock s -> renderCodeBlock renderBlock s
-        | Comment s -> renderComment renderBlock s
+            |> List.map nextRender
+            |> renderGroup nextRender
+        | Heading s -> renderHeading nextRender s
+        | NewLine s -> renderNewLine nextRender s
+        | Paragraph s -> renderParagraph nextRender s
+        | UnorderedList s -> renderUnorderedList nextRender s
+        | BlockQuote s -> renderBlockQuote nextRender s
+        | CodeBlock s -> renderCodeBlock nextRender s
+        | Comment s -> renderComment nextRender s
+        | SpecialFunction (action, args) -> renderSpecialFunction nextRender (action, args) specialLookup
     
     interface IRenderer<RenderFragment> with
-        member this.Render symbol =
+        member this.Render symbol specialLookup =
+            let nextRender = renderBlock specialLookup
+            
             symbol.Content
-            |> List.map renderBlock
-            |> renderGroup renderBlock
+            |> List.map nextRender
+            |> renderGroup nextRender

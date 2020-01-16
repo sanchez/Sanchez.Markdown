@@ -3,6 +3,7 @@
 open Sanchez.Markdown.Parser.Models.Parsers
 open Sanchez.Markdown.Parser.Parsers.Block
 open Sanchez.Markdown.Parser.Parsers.Block
+open Sanchez.Markdown.Parser.Parsers.Block
 open Sanchez.Markdown.Parser.Parsers.Inline
 open Sanchez.Markdown.Parser.Parsers.Inline.PlainText
 open Sanchez.Markdown.Symbols.Inline
@@ -39,6 +40,7 @@ let private blockParsers: List<string list -> BlockParserType -> InlineParserTyp
     Blockquote.Parse
     CodeBlock.Parse
     Comment.Parse
+    SpecialFunction.Parse
 
     Paragraph.Parse
 ]

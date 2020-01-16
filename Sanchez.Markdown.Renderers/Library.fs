@@ -7,4 +7,4 @@ type BlockRenderer<'T> = Block -> 'T
 type InlineRenderer<'T> = Inline list -> 'T
 
 type IRenderer<'T> =
-    abstract member Render: symbol: DocumentSymbol -> 'T
+    abstract member Render: symbol: DocumentSymbol -> specialLookup: (string -> string -> 'T) -> 'T

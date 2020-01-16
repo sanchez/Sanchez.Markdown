@@ -18,6 +18,7 @@ type Block =
     | BlockQuote of SimpleSymbol
     | CodeBlock of CodeBlockSymbol
     | Comment of string
+    | SpecialFunction of string * string
 
 and DocumentSymbol (metadata: Map<string, string>, content: Block list) =
     member this.Metadata = metadata
