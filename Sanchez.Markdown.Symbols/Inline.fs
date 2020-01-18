@@ -6,6 +6,7 @@ type Inline =
     | PlainText of PlainTextSymbol
     | Link of LinkSymbol
     | Image of LinkSymbol
+    | CodeStatement of PlainTextSymbol
 
 and SimpleInlineSymbol (content: Inline list) =
     member this.Content = content

@@ -57,6 +57,12 @@ type BlazorRenderer() =
                 builder.AddContent(2, content)
                 builder.CloseElement()))
         
+    let renderCodeStatement (inlineRenderer: InlineRenderer<RenderFragment>) (b: PlainTextSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            builder.AddContent(1, b.Content)
+            builder.CloseElement())
+        
     let rec renderInline (symbol: Inline list) =
         symbol
         |> List.map (fun x ->
@@ -66,6 +72,7 @@ type BlazorRenderer() =
             | PlainText s -> renderPlainText renderInline s
             | Link s -> renderLink renderInline s
             | Image s -> renderImage renderInline s
+            | CodeStatement s -> renderCodeStatement renderInline s
             )
         |> renderInlineGroup renderInline
         
@@ -102,20 +109,51 @@ type BlazorRenderer() =
             builder.AddContent(1, renderInline symbol.Content)
             builder.CloseElement())
         
-    let rec renderBlock symbol =
+    let renderCodeBlock (blockRenderer: BlockRenderer<RenderFragment>) (symbol: CodeBlockSymbol) =
+        new RenderFragment(fun builder ->
+            builder.OpenElement(0, "code")
+            symbol.Content
+            |> List.map (fun x -> x + "\n")
+            |> List.reduce (+)
+            |> (fun x -> builder.AddContent(1, x))
+            builder.CloseElement())
+        
+    let renderComment (blockRenderer: BlockRenderer<RenderFragment>) (symbol: string) =
+        new RenderFragment(fun builder ->
+            0 |> ignore)
+        
+    let renderSpecialFunction (blockRenderer: BlockRenderer<RenderFragment>) (symbol: string * string) (specialLookup: string -> string -> RenderFragment) =
+        let special = specialLookup (fst symbol) (snd symbol)
+        if special = null then
+            new RenderFragment(fun builder ->
+                builder.OpenElement(0, "div")
+                fst symbol
+                |> sprintf "Missing Symbol Render for: %s"
+                |> (fun x -> builder.AddContent(1, x))
+                builder.CloseElement())
+        else special
+        
+    let rec renderBlock specialLookup symbol =
+        let nextRender = renderBlock specialLookup
+        
         match symbol with
         | Document d ->
             d.Content
-            |> List.map renderBlock
-            |> renderGroup renderBlock
-        | Heading s -> renderHeading renderBlock s
-        | NewLine s -> renderNewLine renderBlock s
-        | Paragraph s -> renderParagraph renderBlock s
-        | UnorderedList s -> renderUnorderedList renderBlock s
-        | BlockQuote s -> renderBlockQuote renderBlock s
+            |> List.map nextRender
+            |> renderGroup nextRender
+        | Heading s -> renderHeading nextRender s
+        | NewLine s -> renderNewLine nextRender s
+        | Paragraph s -> renderParagraph nextRender s
+        | UnorderedList s -> renderUnorderedList nextRender s
+        | BlockQuote s -> renderBlockQuote nextRender s
+        | CodeBlock s -> renderCodeBlock nextRender s
+        | Comment s -> renderComment nextRender s
+        | SpecialFunction (action, args) -> renderSpecialFunction nextRender (action, args) specialLookup
     
     interface IRenderer<RenderFragment> with
-        member this.Render symbol =
+        member this.Render symbol specialLookup =
+            let nextRender = renderBlock specialLookup
+            
             symbol.Content
-            |> List.map renderBlock
-            |> renderGroup renderBlock
+            |> List.map nextRender
+            |> renderGroup nextRender
